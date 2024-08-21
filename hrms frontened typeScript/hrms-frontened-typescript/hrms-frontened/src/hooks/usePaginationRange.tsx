@@ -1,0 +1,46 @@
+import React from "react";
+import { Button } from "react-bootstrap";
+interface PaginationProp{
+  currentPage:number
+  totalPages :number
+  onPageChange : (page : number)=>void
+}
+export const Pagination : React.FC<PaginationProp> = ({ currentPage, totalPages, onPageChange }) => {
+  const handleFirstPage = () => {
+    onPageChange(1);
+  };
+
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      onPageChange(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      onPageChange(currentPage + 1);
+    }
+  };
+
+  const handleLastPage = () => {
+    onPageChange(totalPages);
+  };
+
+  return (
+    <div className="pagination float-end me-3 d-flex align-items-center justify-content-between w-25">
+      <Button className="btn-sm paginationButton" onClick={handleFirstPage} disabled={currentPage === 1}>
+        <span aria-hidden="true">&laquo;</span>
+      </Button>
+      <Button  onClick={handlePrevious} disabled={currentPage === 1} className="btn-sm paginationButton">
+        <span aria-hidden="true">&lsaquo;</span>
+      </Button>
+      <span>{`Page ${currentPage} of ${totalPages}`}</span>
+      <Button  onClick={handleNext} disabled={currentPage === totalPages} className="btn-sm paginationButton">
+        <span aria-hidden="true">&rsaquo;</span>
+      </Button>
+      <Button  onClick={handleLastPage} disabled={currentPage === totalPages} className="btn-sm paginationButton">
+        <span aria-hidden="true">&raquo;</span>
+      </Button>
+    </div>
+  );
+};

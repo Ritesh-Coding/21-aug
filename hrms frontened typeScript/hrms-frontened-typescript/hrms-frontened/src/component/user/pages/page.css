@@ -1,0 +1,218 @@
+
+.dashBoardrow
+{
+    display: flex;
+    position: relative;
+    margin: 0 -15px;
+
+}
+
+.dashBoardcol1{
+    margin-left: 210px;
+    width : 50%;
+    /* width: calc(100% / 3); */ 
+
+
+   }
+.profilecol2{
+    position: absolute;
+    left: 800px;
+   }
+.dashBoardcol3{
+
+   margin-left: 25px;
+   width : 70%;
+   }
+.dashBoardcol4{
+    left: 800px;
+    bottom: 80px;
+    width : 50%;  
+    position: absolute;
+  
+   }
+.dashboardcol2{
+    margin-left: 40px;
+    width : 50%;
+    background-color: white;
+    /* width: calc(100% / 3); */
+    
+    /* background-color: rgb(50, 48, 167) */
+   }
+
+.activity > Button
+   {
+        margin: 10px;
+   }
+
+.e-card-content
+   {
+    list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 20rem;
+  overflow: scroll;
+
+    }
+.innerButton >Button
+    {
+        padding: 12px;
+        margin: 10px;
+    }
+.documentsData{
+    margin-top: 50px;
+}
+.documentsDetails 
+{
+    margin-left: 260px;    
+}
+.editButton
+{
+    margin-left: 275px;
+}
+#profileImage
+{
+    border-radius: 50%;
+    width: 250px;
+}
+
+.attendanceMainCard{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.infoAttendance{
+    width:180px;
+    height:80px
+}
+
+.calender{
+    display: flex;   
+}
+
+.inputElement{
+   color: black;
+   width: 145px;
+   border: 2px solid rgb(7, 39, 7);
+   border-radius: 5px;
+  
+}
+
+
+.dailyLogs{
+    width: 250px;
+    height:150px;
+    background-color: white;
+    
+}
+.dailyEmployeeLogCheckIn{
+    background-color: #44B04B;
+    border-radius: 5px;
+    padding: 1px;
+}
+.dailyEmployeeLogBreakIn{
+    background-color:#F3B103;
+    border-radius: 5px;
+    padding: 1px;
+}
+.dailyEmployeeLogBreakOut{
+    background-color:#F07F1C;
+    border-radius: 5px;
+    padding: 1px;
+}
+.dailyEmployeeLogCheckOut{
+    background-color:red;
+    border-radius: 5px;
+    padding: 1px;
+}   
+
+.cardDashboard{
+    margin-top: 50px;
+    margin-left: 10px;
+    display: flex;
+    flex: row;
+    justify-content: center,
+}
+.employeeActivities
+{
+    margin-left: 40px;
+    background-color: white;
+    border-left: 6px solid #112F4B;
+    border-radius: 5px;
+}
+
+.dateTime
+{
+    display: flex;
+    flex-direction: column;
+    padding : 8px
+}
+
+.cardBorder{
+    border-left: 6px solid #112F4B;
+    border-radius: 5px;
+}
+
+.card{
+    border-radius: 8px;
+}
+.searchInput{
+    color: black;
+    width: 185px;
+    border: 2px solid rgb(7, 39, 7);
+    border-radius: 5px;
+   
+    margin-right: 450px;
+}
+
+.paginationButton{
+    border-radius: 8px;
+    size: 1px;
+    
+}
+
+.profileItems{
+    margin: 10px;
+}
+
+
+
+.employeeActivitiesNavBar{
+    margin-left: 70px;
+    display: flex;
+    margin-top: 40px;
+}
+
+.flexItem{
+    display: flex;
+}
+.dashboardActionFont{
+    font-size: 14px;
+}
+.dashboardActionFontItems{
+    font-size: 20px;
+}
+#calender{
+    margin-left: 260px;
+    margin-top: 40px;
+    width: 60%;
+}
+.employeeDailyActivity{
+    margin-top: 5px;
+    margin-left: 110px;
+    padding: 5px;
+    background-color: white;
+    width: 480px;
+}
+
+.dailyActivitiesText{
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+}
+.customPagination{
+    float: end;
+    display: flex;
+    margin-left: 90px;
+}
