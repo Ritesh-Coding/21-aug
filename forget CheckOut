@@ -1,35 +1,38 @@
-from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from .serializers import CheckOutUpdateSerializer
-from .models import Attendence
+import multiprocessing
 
-class ForgetCheckOut(viewsets.ModelViewSet):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [AllowAny]
-    serializer_class = CheckOutUpdateSerializer
-    
-    def get_queryset(self):
-        # Custom queryset based on the request method
-        if self.request.method == 'GET':
-            # For GET requests, return the attendance records without a checkout for the current user
-            return Attendence.objects.filter(employee_id=self.request.user.id, checkOut=None).order_by("-date")[:1]
-        elif self.request.method == 'PATCH':
-            # For PATCH requests, return all attendance records (or a different logic if required)
-            return Attendence.objects.all()
-        else:
-            return super().get_queryset()
+# Define the functions for each operation
+def add_one(number):
+    return number + 1
 
-    def update(self, request, *args, **kwargs):
-        # For PATCH requests, use a custom queryset that you may want to filter differently
-        self.queryset = self.get_queryset()
-        
-        partial = kwargs.pop('partial', False)
-        instance = self.get_object()
-        
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)  
-        self.perform_update(serializer)
-        
-        return Response(serializer.data)
+def subtract_one(added_value):
+    return added_value - 1
+
+def multiply_one(subtracted_value):
+    return subtracted_value * 1
+
+# Function to handle the sequence of operations for a single number
+def process_number(number):
+    added_value = add_one(number)
+    subtracted_value = subtract_one(added_value)
+    result = multiply_one(subtracted_value)
+    return result
+
+def parallel_processing(numbers):
+    # Create a pool of processes
+    with multiprocessing.Pool() as pool:
+        # Use apply_async to run each number's sequence asynchronously
+        results = [pool.apply_async(process_number, args=(num,)) for num in numbers]
+
+        # Collect the results maintaining order
+        output = [result.get() for result in results]
+
+    return output
+
+if __name__ == "__main__":
+    # Sample list of numbers
+    numbers = [i for i in range(1, 11)]
+
+    # Process the numbers in parallel
+    results = parallel_processing(numbers)
+
+    print("Final Results:", results)
