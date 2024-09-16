@@ -1,50 +1,26 @@
-WITH unnested_objects AS (
-    SELECT 
-        id,
-        jsonb_array_elements(title::jsonb) AS obj
-    FROM 
-        your_table
-),
-numbered_objects AS (
-    SELECT 
-        id,
-        obj,
-        ROW_NUMBER() OVER (ORDER BY id) AS rn
-    FROM 
-        unnested_objects
+WITH sample_data AS (
+  SELECT STRUCT([STRUCT('1' AS id, '2' AS id, '3' AS id)] AS id_array, STRUCT('superb' AS nature) AS nature_obj) AS data
 )
 SELECT 
-    id,
-    obj->>'name' AS title
-FROM 
-    numbered_objects
-ORDER BY 
-    id, rn;
+  data.id_array[SAFE_OFFSET(0)].id AS first_id,
+  data.nature_obj.nature AS nature
+FROM sample_data;
 
 
 
-WITH unnested_objects AS (
-    SELECT 
-        id,
-        name
-    FROM 
-        your_project.your_dataset.your_table,
-        UNNEST(title) AS title_struct
-),
-numbered_objects AS (
-    SELECT 
-        id,
-        name,
-        ROW_NUMBER() OVER (ORDER BY id) AS rn
-    FROM 
-        unnested_objects
+WITH data AS (
+  SELECT '[{"id":"1"},{"id":"2"}]' AS first_col,
+         '{"id":["1","2","3"],"nature":"superb"}' AS second_col
 )
-SELECT 
-    id,
-    name AS title
-FROM 
-    numbered_objects
-ORDER BY 
-    id, rn;
 
-	
+-- Perform the dynamic self-join based on `first_item`
+SELECT 
+  JSON_EXTRACT_SCALAR(first_item, '$.id') AS first_col_id,
+  second_item AS second_col_id,
+  JSON_EXTRACT_SCALAR(d.second_col, '$.nature') AS nature
+FROM 
+  data d,
+  UNNEST(JSON_EXTRACT_ARRAY(d.first_col)) AS first_item,  -- Unnest the first column's JSON array
+  UNNEST(JSON_EXTRACT_ARRAY(JSON_EXTRACT(d.second_col, '$.id'))) AS second_item -- Unnest the second column's `id` array
+WHERE 
+  JSON_EXTRACT_SCALAR(first_item, '$.id') = second_item;  -- Compare the extracted `first_item` with `second_item`
